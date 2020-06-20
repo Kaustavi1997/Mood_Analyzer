@@ -1,1 +1,1 @@
-# Mood_Analyzer
+Welcome to Mood Analyzer!
