@@ -15,10 +15,19 @@ public class MoodAnalyzerTest {
 
     }
     @Test
-    public void whenNullMessage_ShouldReturnHappy(){
-        MoodAnalyzer moodAnalyzer = new MoodAnalyzer(null);
-        Assert.assertEquals("HAPPY",moodAnalyzer.analyzeMood());
-
+    public void whenNullMessage_InformUser(){
+        try {
+            MoodAnalyzer moodAnalyzer = new MoodAnalyzer(null);
+        }catch (MoodAnalysisException e) {
+            Assert.assertEquals(MoodAnalysisException.ExceptionType.ENTERED_NULL,e.exceptionType);
+        }
     }
-
+    @Test
+    public void whenEmptyMessage_InformUser(){
+        try {
+            MoodAnalyzer moodAnalyzer = new MoodAnalyzer("");
+        }catch (MoodAnalysisException e) {
+            Assert.assertEquals(MoodAnalysisException.ExceptionType.ENTERED_EMPTY,e.exceptionType);
+        }
+    }
 }
