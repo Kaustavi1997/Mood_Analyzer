@@ -49,4 +49,13 @@ public class MoodAnalyzerTest {
             Assert.assertEquals(MoodAnalysisException.ExceptionType.NO_SUCH_CLASS, e.exceptionType);
         }
     }
+    @Test
+    public void givenClass_WhenConstructorNotProper_ShouldThrowNoSuchMethodException() {
+        MoodAnalyzer moodAnalyzer = null;
+        try {
+            moodAnalyzer = MoodAnalyzerFactory.creatMoodAnalyser();
+        } catch (MoodAnalysisException e) {
+            Assert.assertEquals(MoodAnalysisException.ExceptionType.NO_SUCH_METHOD, e.exceptionType);
+        }
+    }
 }
