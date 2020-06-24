@@ -34,12 +34,7 @@ public class MoodAnalyzerTest {
     @Test
     public void givenMoodAnalyseClass_WhenProper_ReturnObject() throws MoodAnalysisException {
         MoodAnalyzer moodAnalyzer = MoodAnalyzerFactory.creatMoodAnalyser();
-        try {
-            String mood = moodAnalyzer.analyzeMood();
-            Assert.assertEquals("HAPPY",mood);
-        }catch(MoodAnalysisException e) {
-            e.printStackTrace();
-        }
+        Assert.assertEquals(new MoodAnalyzer(),moodAnalyzer);
     }
     @Test
     public void givenClassName_WhenImproper_ShouldThrowException() {
@@ -60,12 +55,7 @@ public class MoodAnalyzerTest {
     @Test
     public void givenMoodAnalyseClass_WhenProper_ReturnObject_Parameter() throws MoodAnalysisException {
         MoodAnalyzer moodAnalyzer = MoodAnalyzerFactory.creatMoodAnalyser("I am in happy mood");
-        try {
-            String mood = moodAnalyzer.analyzeMood();
-            Assert.assertEquals("HAPPY",mood);
-        }catch(MoodAnalysisException e) {
-            e.printStackTrace();
-        }
+        Assert.assertEquals(new MoodAnalyzer("I am in happy mood"),moodAnalyzer);
     }
     @Test
     public void givenClassName_WhenImproper_ShouldThrowException_Parameter() {

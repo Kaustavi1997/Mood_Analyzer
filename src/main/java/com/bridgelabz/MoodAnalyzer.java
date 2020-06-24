@@ -27,5 +27,11 @@ public class MoodAnalyzer {
                 throw new MoodAnalysisException("Please enter valid mood message.It's Null",MoodAnalysisException.ExceptionType.ENTERED_NULL);
             }
         }
-
+    @Override
+    public boolean equals(Object another) {
+        if (this.message.equals(((MoodAnalyzer)another).message))
+            return true;
+        else
+            return false;
+    }
 }

@@ -34,6 +34,18 @@ public class MoodAnalyzerFactory {
         } catch (InstantiationException | InvocationTargetException e) {
             throw new MoodAnalysisException("Method Not Found", MoodAnalysisException.ExceptionType.OBJECT_CREATION_ISSUE);
         }
+
+    }
+    public static Object invokeMethod(Object moodAnalyserObject , String methodName ) throws MoodAnalysisException {
+        try {
+            return moodAnalyserObject.getClass().getMethod(methodName).invoke(moodAnalyserObject);
+        } catch (NoSuchMethodException e) {
+            throw new MoodAnalysisException("Method Not Found",
+                    MoodAnalysisException.ExceptionType.NO_SUCH_METHOD);
+        }catch (IllegalAccessException |InvocationTargetException e) {
+            throw  new MoodAnalysisException("Maybe issue with data entererd",
+                    MoodAnalysisException.ExceptionType.METHOD_INVOCATION_ISSUE);
+        }
     }
 }
 
