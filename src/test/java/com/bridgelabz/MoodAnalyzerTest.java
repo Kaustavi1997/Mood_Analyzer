@@ -68,5 +68,15 @@ public class MoodAnalyzerTest {
             e.printStackTrace();
         }
     }
+    @Test
+    public void givenClassName_WhenImproper_ShouldThrowException_Parameter() {
+        MoodAnalyzer moodAnalyzer = null;
+        try {
+            moodAnalyzer = MoodAnalyzerFactory.creatMoodAnalyser("I am in happy mood");
+        } catch (MoodAnalysisException e) {
+            Assert.assertEquals(MoodAnalysisException.ExceptionType.NO_SUCH_CLASS, e.exceptionType);
+        }
+    }
+
 
 }
