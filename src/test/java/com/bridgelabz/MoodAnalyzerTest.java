@@ -30,4 +30,14 @@ public class MoodAnalyzerTest {
             Assert.assertEquals(MoodAnalysisException.ExceptionType.ENTERED_EMPTY,e.exceptionType);
         }
     }
+    @Test
+    public void givenMoodAnalyseClass_WhenProper_ReturnObject() throws MoodAnalysisException {
+        MoodAnalyzer moodAnalyzer = MoodAnalyzerFactory.creatMoodAnalyser();
+        try {
+            String mood = moodAnalyzer.analyzeMood();
+            Assert.assertEquals("HAPPY",mood);
+        }catch(MoodAnalysisException e) {
+            e.printStackTrace();
+        }
+    }
 }
