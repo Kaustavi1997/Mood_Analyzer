@@ -80,7 +80,7 @@ public class MoodAnalyzerTest {
             Assert.assertEquals("HAPPY", analyseMood);
     }
     @Test
-    public void givenHappyMessage_ImProperMethod_ShouldReturnHappy() {
+    public void givenHappyMessage_ImProperMethod_ShouldThrowException() {
         try {
             Object analyseMood = MoodAnalyzerReflector.invokeMethod(MoodAnalyzerReflector.creatMoodAnalyser("I am in happy mood"), "mood");
         }catch (MoodAnalysisException e) {
@@ -93,6 +93,16 @@ public class MoodAnalyzerTest {
         MoodAnalyzerReflector.setFieldValue(MoodAnalyzerReflector.creatMoodAnalyser("I am in happy mood"), "message", "I am in happy mood");
         Object analyseMood = MoodAnalyzerReflector.invokeMethod(MoodAnalyzerReflector.creatMoodAnalyser("I am in happy mood"), "analyzeMood");
         Assert.assertEquals("HAPPY", analyseMood);
+    }
+    @Test
+    public void givenSetField_Improper_ShouldThrowException() {
+        try {
+            MoodAnalyzerReflector.setFieldValue(MoodAnalyzerReflector.creatMoodAnalyser("I am in happy mood"), "nothing", "I am in no mood");
+            Object analyseMood = MoodAnalyzerReflector.invokeMethod(MoodAnalyzerReflector.creatMoodAnalyser("I am in happy mood"), "analyzeMood");
+        }catch (MoodAnalysisException e) {
+            Assert.assertEquals(MoodAnalysisException.ExceptionType.NO_SUCH_FIELD, e.exceptionType);
+        }
+
     }
 
 }
