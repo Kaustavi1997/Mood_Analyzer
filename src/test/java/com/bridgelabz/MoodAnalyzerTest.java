@@ -42,18 +42,16 @@ public class MoodAnalyzerTest {
     }
     @Test
     public void givenClassName_WhenImproper_ShouldThrowException() {
-        MoodAnalyzer moodAnalyzer = null;
         try {
-            moodAnalyzer = MoodAnalyzerFactory.creatMoodAnalyser();
+            MoodAnalyzer moodAnalyzer = MoodAnalyzerFactory.creatMoodAnalyser();
         } catch (MoodAnalysisException e) {
             Assert.assertEquals(MoodAnalysisException.ExceptionType.NO_SUCH_CLASS, e.exceptionType);
         }
     }
     @Test
-    public void givenClass_WhenConstructorNotProper_ShouldThrowNoSuchMethodException() {
-        MoodAnalyzer moodAnalyzer = null;
+    public void givenClass_WhenConstructorNotProper_ShouldThrowException() {
         try {
-            moodAnalyzer = MoodAnalyzerFactory.creatMoodAnalyser();
+            MoodAnalyzer moodAnalyzer = MoodAnalyzerFactory.creatMoodAnalyser();
         } catch (MoodAnalysisException e) {
             Assert.assertEquals(MoodAnalysisException.ExceptionType.NO_SUCH_METHOD, e.exceptionType);
         }
@@ -70,13 +68,18 @@ public class MoodAnalyzerTest {
     }
     @Test
     public void givenClassName_WhenImproper_ShouldThrowException_Parameter() {
-        MoodAnalyzer moodAnalyzer = null;
         try {
-            moodAnalyzer = MoodAnalyzerFactory.creatMoodAnalyser("I am in happy mood");
+            MoodAnalyzer moodAnalyzer = MoodAnalyzerFactory.creatMoodAnalyser("I am in happy mood");
         } catch (MoodAnalysisException e) {
             Assert.assertEquals(MoodAnalysisException.ExceptionType.NO_SUCH_CLASS, e.exceptionType);
         }
     }
-
-
+    @Test
+    public void givenClass_WhenConstructorNotProper_ShouldThrowException_Parameter() {
+        try {
+            MoodAnalyzer moodAnalyzer = MoodAnalyzerFactory.creatMoodAnalyser("I am in happy mood");
+        } catch (MoodAnalysisException e) {
+            Assert.assertEquals(MoodAnalysisException.ExceptionType.NO_SUCH_METHOD, e.exceptionType);
+        }
+    }
 }
