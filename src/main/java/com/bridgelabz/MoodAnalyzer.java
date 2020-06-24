@@ -4,11 +4,11 @@ public class MoodAnalyzer {
         String message;
         public MoodAnalyzer() {
         this.message = "";
-    }
+        }
 
         public MoodAnalyzer(String message) {
         this.message = message;
-    }
+        }
         public String analyzeMood (String message)throws MoodAnalysisException {
             this.message=message;
             return analyzeMood();
