@@ -1,6 +1,7 @@
 package com.bridgelabz;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Field;
 
 public class MoodAnalyzerReflector {
     public static MoodAnalyzer creatMoodAnalyser(String ... message) throws MoodAnalysisException {
@@ -36,6 +37,19 @@ public class MoodAnalyzerReflector {
         }
 
     }
+    public static void setFieldValue(Object myObject, String fieldName, String fieldValue) throws MoodAnalysisException {
+        try {
+            Field field = myObject.getClass().getDeclaredField(fieldName);
+            field.setAccessible(true);
+            field.set(myObject,fieldValue);
+        } catch (NoSuchFieldException e) {
+            throw new MoodAnalysisException("field Not Found",
+                    MoodAnalysisException.ExceptionType.NO_SUCH_FIELD);
+        } catch (IllegalAccessException e) {
+            throw new MoodAnalysisException("may be issue with data",
+                    MoodAnalysisException.ExceptionType.NO_ACCESS);
+        }
+    }
     public static Object invokeMethod(Object moodAnalyserObject , String methodName ) throws MoodAnalysisException {
         try {
             return moodAnalyserObject.getClass().getMethod(methodName).invoke(moodAnalyserObject);
@@ -43,7 +57,7 @@ public class MoodAnalyzerReflector {
             throw new MoodAnalysisException("Method Not Found",
                     MoodAnalysisException.ExceptionType.NO_SUCH_METHOD);
         }catch (IllegalAccessException |InvocationTargetException e) {
-            throw  new MoodAnalysisException("Maybe issue with data entererd",
+            throw new MoodAnalysisException("Maybe issue with data entererd",
                     MoodAnalysisException.ExceptionType.METHOD_INVOCATION_ISSUE);
         }
     }

@@ -88,5 +88,11 @@ public class MoodAnalyzerTest {
         }
 
     }
+    @Test
+    public void givenHappyMessage_dynamic_ShouldReturnHappy() {
+        MoodAnalyzerReflector.setFieldValue(MoodAnalyzerReflector.creatMoodAnalyser("I am in happy mood"), "message", "I am in happy mood");
+        Object analyseMood = MoodAnalyzerReflector.invokeMethod(MoodAnalyzerReflector.creatMoodAnalyser("I am in happy mood"), "analyzeMood");
+        Assert.assertEquals("HAPPY", analyseMood);
+    }
 
 }
