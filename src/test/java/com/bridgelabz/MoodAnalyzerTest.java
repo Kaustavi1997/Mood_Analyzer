@@ -79,5 +79,14 @@ public class MoodAnalyzerTest {
             Object analyseMood = MoodAnalyzerReflector.invokeMethod(MoodAnalyzerReflector.creatMoodAnalyser("I am in happy mood"), "analyzeMood");
             Assert.assertEquals("HAPPY", analyseMood);
     }
+    @Test
+    public void givenHappyMessage_ImProperMethod_ShouldReturnHappy() {
+        try {
+            Object analyseMood = MoodAnalyzerReflector.invokeMethod(MoodAnalyzerReflector.creatMoodAnalyser("I am in happy mood"), "mood");
+        }catch (MoodAnalysisException e) {
+            Assert.assertEquals(MoodAnalysisException.ExceptionType.NO_SUCH_METHOD, e.exceptionType);
+        }
+
+    }
 
 }
