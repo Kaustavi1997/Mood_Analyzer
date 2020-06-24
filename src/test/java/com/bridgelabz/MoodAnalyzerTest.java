@@ -104,5 +104,16 @@ public class MoodAnalyzerTest {
         }
 
     }
+    @Test
+    public void givenSetField_Null_ShouldThrowException() {
+        try {
+            MoodAnalyzer moodAnalyzer =MoodAnalyzerReflector.creatMoodAnalyser("I am in happy mood");
+            MoodAnalyzerReflector.setFieldValue(moodAnalyzer, null, null);
+            Object analyseMood = MoodAnalyzerReflector.invokeMethod(MoodAnalyzerReflector.creatMoodAnalyser("I am in happy mood"), "analyzeMood");
+        }catch (NullPointerException e) {
+            System.out.print("NullPointerException Caught");
+        }
+
+    }
 
 }
