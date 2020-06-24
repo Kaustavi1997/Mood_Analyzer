@@ -2,7 +2,7 @@ package com.bridgelabz;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
-public class MoodAnalyzerFactory {
+public class MoodAnalyzerReflector {
     public static MoodAnalyzer creatMoodAnalyser(String ... message) throws MoodAnalysisException {
         try {
             int size=message.length;
