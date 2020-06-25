@@ -6,27 +6,18 @@ import java.lang.reflect.Field;
 public class MoodAnalyzerReflector {
     public static MoodAnalyzer creatMoodAnalyser(String ... message) throws MoodAnalysisException {
         try {
-            int size=message.length;
-            String messageString;
-            if(size!=0) {
-                messageString = message[0];
+            Class<?> moodAnalyzerClass = Class.forName("com.bridgelabz.MoodAnalyzer");
+            if (message.length > 0) {
+                Constructor<?> constructor = moodAnalyzerClass.getConstructor(String.class);
+                Object moodAnalyzer = constructor.newInstance(message[0]);
+                return (MoodAnalyzer) moodAnalyzer;
+            } else {
+                Constructor<?> constructor = moodAnalyzerClass.getConstructor();
+                Object moodAnalyzer = constructor.newInstance();
+                return (MoodAnalyzer) moodAnalyzer;
             }
-            else{
-                messageString = "";
-            }
-            Class<?> moodAnalyserClass = Class.forName("com.bridgelabz.MoodAnalyzer");
-            Constructor<?> constructor[] = moodAnalyserClass.getDeclaredConstructors();
-            Constructor<?> moodConstructor;
-            Object moodObj;
-            if(size!=0){
-                moodConstructor = constructor[1];
-                moodObj = moodConstructor.newInstance(messageString);
-            }
-            else{
-                moodConstructor = constructor[0];
-                moodObj = moodConstructor.newInstance();
-            }
-            return (MoodAnalyzer) moodObj;
+        }catch (NoSuchMethodException e) {
+            throw new MoodAnalysisException("Method Not Found", MoodAnalysisException.ExceptionType.NO_SUCH_METHOD);
         } catch (ClassNotFoundException e) {
             throw new MoodAnalysisException("Class Not Found", MoodAnalysisException.ExceptionType.NO_SUCH_CLASS);
         }
@@ -37,11 +28,11 @@ public class MoodAnalyzerReflector {
         }
 
     }
-    public static void setFieldValue(Object myObject, String fieldName, String fieldValue) throws MoodAnalysisException {
+    public static void setFieldValue(Object moodAnalyserObject, String fieldName, String fieldValue) throws MoodAnalysisException {
         try {
-            Field field = myObject.getClass().getDeclaredField(fieldName);
+            Field field = moodAnalyserObject.getClass().getDeclaredField(fieldName);
             field.setAccessible(true);
-            field.set(myObject,fieldValue);
+            field.set(moodAnalyserObject,fieldValue);
         } catch (NoSuchFieldException e) {
             throw new MoodAnalysisException("field Not Found",
                     MoodAnalysisException.ExceptionType.NO_SUCH_FIELD);

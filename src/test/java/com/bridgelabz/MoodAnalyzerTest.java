@@ -100,7 +100,7 @@ public class MoodAnalyzerTest {
             MoodAnalyzerReflector.setFieldValue(MoodAnalyzerReflector.creatMoodAnalyser("I am in happy mood"), "nothing", "I am in no mood");
             Object analyseMood = MoodAnalyzerReflector.invokeMethod(MoodAnalyzerReflector.creatMoodAnalyser("I am in happy mood"), "analyzeMood");
         }catch (MoodAnalysisException e) {
-            Assert.assertEquals(MoodAnalysisException.ExceptionType.NO_SUCH_FIELD, e.exceptionType);
+            Assert.assertEquals(MoodAnalysisException.ExceptionType.NO_SUCH_FIELD,e.exceptionType);
         }
 
     }
