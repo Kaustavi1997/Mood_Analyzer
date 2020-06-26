@@ -8,7 +8,12 @@ public class MoodAnalyzerReflector {
         try {
             Class<?> moodAnalyzerClass = Class.forName(information[0]);
             if (information.length > 1) {
-                Class<?> moodAnalyzerParameter = Class.forName("java.lang."+information[1]);
+                Class<?> moodAnalyzerParameter=null;
+                try {
+                     moodAnalyzerParameter = Class.forName("java.lang." + information[1]);
+                }catch(ClassNotFoundException e){
+                    throw new MoodAnalysisException("Method Not Found", MoodAnalysisException.ExceptionType.NO_SUCH_METHOD);
+                }
                 Constructor<?> constructor = moodAnalyzerClass.getConstructor(moodAnalyzerParameter);
                 Object moodAnalyzer = constructor.newInstance(information[2]);
                 return (MoodAnalyzer) moodAnalyzer;
