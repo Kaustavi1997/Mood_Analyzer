@@ -4,12 +4,13 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Field;
 
 public class MoodAnalyzerReflector {
-    public static MoodAnalyzer creatMoodAnalyser(String ... message) throws MoodAnalysisException {
+    public static MoodAnalyzer creatMoodAnalyser(String ... information) throws MoodAnalysisException {
         try {
-            Class<?> moodAnalyzerClass = Class.forName("com.bridgelabz.MoodAnalyzer");
-            if (message.length > 0) {
-                Constructor<?> constructor = moodAnalyzerClass.getConstructor(String.class);
-                Object moodAnalyzer = constructor.newInstance(message[0]);
+            Class<?> moodAnalyzerClass = Class.forName(information[0]);
+            if (information.length > 1) {
+                Class<?> moodAnalyzerParameter = Class.forName("java.lang."+information[1]);
+                Constructor<?> constructor = moodAnalyzerClass.getConstructor(moodAnalyzerParameter);
+                Object moodAnalyzer = constructor.newInstance(information[2]);
                 return (MoodAnalyzer) moodAnalyzer;
             } else {
                 Constructor<?> constructor = moodAnalyzerClass.getConstructor();
