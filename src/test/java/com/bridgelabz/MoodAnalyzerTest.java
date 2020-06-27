@@ -1,4 +1,7 @@
 package com.bridgelabz;
+import com.bridgelabz.Exception.MoodAnalysisException;
+import com.bridgelabz.service.MoodAnalyzer;
+import com.bridgelabz.service.MoodAnalyzerReflector;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -21,7 +24,7 @@ public class MoodAnalyzerTest {
         try {
             MoodAnalyzer moodAnalyzer = new MoodAnalyzer(null);
         }catch (MoodAnalysisException e) {
-            Assert.assertEquals(MoodAnalysisException.ExceptionType.ENTERED_NULL, e.exceptionType);
+            System.out.println(e.getMessage());
         }
     }
     @Test
@@ -29,13 +32,13 @@ public class MoodAnalyzerTest {
         try {
             MoodAnalyzer moodAnalyzer = new MoodAnalyzer("");
         }catch (MoodAnalysisException e) {
-            Assert.assertEquals(MoodAnalysisException.ExceptionType.ENTERED_EMPTY, e.exceptionType);
+            System.out.println(e.getMessage());
         }
     }
     @Test
     public void givenMoodAnalyseClass_WhenProper_ReturnObject() throws MoodAnalysisException {
         try {
-            MoodAnalyzer moodAnalyzer = MoodAnalyzerReflector.creatMoodAnalyser("com.bridgelabz.MoodAnalyzer");
+            MoodAnalyzer moodAnalyzer = MoodAnalyzerReflector.creatMoodAnalyser("com.bridgelabz.service.MoodAnalyzer");
             Assert.assertEquals(new MoodAnalyzer(), moodAnalyzer);
         }catch(MoodAnalysisException e){
             e.printStackTrace();
@@ -52,7 +55,7 @@ public class MoodAnalyzerTest {
     @Test
     public void givenMoodAnalyseClass_WhenProper_ReturnObject_Parameter() throws MoodAnalysisException {
         try {
-            MoodAnalyzer moodAnalyzer = MoodAnalyzerReflector.creatMoodAnalyser("com.bridgelabz.MoodAnalyzer", "String", "I am in happy mood");
+            MoodAnalyzer moodAnalyzer = MoodAnalyzerReflector.creatMoodAnalyser("com.bridgelabz.service.MoodAnalyzer", "String", "I am in happy mood");
             Assert.assertEquals(new MoodAnalyzer("I am in happy mood"), moodAnalyzer);
         }catch(MoodAnalysisException e){
             e.printStackTrace();
@@ -69,7 +72,7 @@ public class MoodAnalyzerTest {
     @Test
     public void givenClass_WhenConstructorNotProper_ShouldThrowException_Parameter() {
         try {
-            MoodAnalyzer moodAnalyzer = MoodAnalyzerReflector.creatMoodAnalyser("com.bridgelabz.MoodAnalyzer", "Interger", "90");
+            MoodAnalyzer moodAnalyzer = MoodAnalyzerReflector.creatMoodAnalyser("com.bridgelabz.service.MoodAnalyzer", "Interger", "90");
         } catch (MoodAnalysisException e) {
             System.out.println(e.getMessage());
         }
@@ -77,7 +80,7 @@ public class MoodAnalyzerTest {
     @Test
     public void givenHappyMessageProper_ShouldReturnHappy() {
         try {
-            Object analyseMood = MoodAnalyzerReflector.invokeMethod(MoodAnalyzerReflector.creatMoodAnalyser("com.bridgelabz.MoodAnalyzer", "String", "I am in happy mood"), "analyzeMood");
+            Object analyseMood = MoodAnalyzerReflector.invokeMethod(MoodAnalyzerReflector.creatMoodAnalyser("com.bridgelabz.service.MoodAnalyzer", "String", "I am in happy mood"), "analyzeMood");
             Assert.assertEquals("HAPPY", analyseMood);
         }catch(MoodAnalysisException e){
             e.printStackTrace();
@@ -86,7 +89,7 @@ public class MoodAnalyzerTest {
     @Test
     public void givenHappyMessage_ImProperMethod_ShouldThrowException() {
         try {
-            Object analyseMood = MoodAnalyzerReflector.invokeMethod(MoodAnalyzerReflector.creatMoodAnalyser("com.bridgelabz.MoodAnalyzer", "String", "I am in happy mood"), "mood");
+            Object analyseMood = MoodAnalyzerReflector.invokeMethod(MoodAnalyzerReflector.creatMoodAnalyser("com.bridgelabz.service.MoodAnalyzer", "String", "I am in happy mood"), "mood");
             Assert.assertEquals("HAPPY", analyseMood);
         }catch (MoodAnalysisException e) {
             System.out.println(e.getMessage());
@@ -96,8 +99,8 @@ public class MoodAnalyzerTest {
     @Test
     public void givenHappyMessage_dynamic_ShouldReturnHappy() {
         try {
-            MoodAnalyzerReflector.setFieldValue(MoodAnalyzerReflector.creatMoodAnalyser("com.bridgelabz.MoodAnalyzer", "String", "I am in happy mood"), "message", "I am in happy mood");
-            Object analyseMood = MoodAnalyzerReflector.invokeMethod(MoodAnalyzerReflector.creatMoodAnalyser("com.bridgelabz.MoodAnalyzer", "String", "I am in happy mood"), "analyzeMood");
+            MoodAnalyzerReflector.setFieldValue(MoodAnalyzerReflector.creatMoodAnalyser("com.bridgelabz.service.MoodAnalyzer", "String", "I am in happy mood"), "message", "I am in happy mood");
+            Object analyseMood = MoodAnalyzerReflector.invokeMethod(MoodAnalyzerReflector.creatMoodAnalyser("com.bridgelabz.service.MoodAnalyzer", "String", "I am in happy mood"), "analyzeMood");
             Assert.assertEquals("HAPPY", analyseMood);
         }catch(MoodAnalysisException e){
             e.printStackTrace();
@@ -106,8 +109,8 @@ public class MoodAnalyzerTest {
     @Test
     public void givenSetField_Improper_ShouldThrowException() {
         try {
-            MoodAnalyzerReflector.setFieldValue(MoodAnalyzerReflector.creatMoodAnalyser("com.bridgelabz.MoodAnalyzer", "String", "I am in happy mood"), "nothing", "I am in no mood");
-            Object analyseMood = MoodAnalyzerReflector.invokeMethod(MoodAnalyzerReflector.creatMoodAnalyser("com.bridgelabz.MoodAnalyzer", "String", "I am in happy mood"), "analyzeMood");
+            MoodAnalyzerReflector.setFieldValue(MoodAnalyzerReflector.creatMoodAnalyser("com.bridgelabz.service.MoodAnalyzer", "String", "I am in happy mood"), "nothing", "I am in no mood");
+            Object analyseMood = MoodAnalyzerReflector.invokeMethod(MoodAnalyzerReflector.creatMoodAnalyser("com.bridgelabz.service.MoodAnalyzer", "String", "I am in happy mood"), "analyzeMood");
         }catch (MoodAnalysisException e) {
             System.out.println(e.getMessage());
         }
@@ -115,7 +118,7 @@ public class MoodAnalyzerTest {
     @Test
     public void givenSetField_Null_ShouldThrowException() {
         try {
-            MoodAnalyzer moodAnalyzer =MoodAnalyzerReflector.creatMoodAnalyser("com.bridgelabz.MoodAnalyzer", "String", "I am in happy mood");
+            MoodAnalyzer moodAnalyzer =MoodAnalyzerReflector.creatMoodAnalyser("com.bridgelabz.service.MoodAnalyzer", "String", "I am in happy mood");
             MoodAnalyzerReflector.setFieldValue(moodAnalyzer, null, null);
             Object analyseMood = MoodAnalyzerReflector.invokeMethod(moodAnalyzer, "analyzeMood");
         }catch (NullPointerException e) {

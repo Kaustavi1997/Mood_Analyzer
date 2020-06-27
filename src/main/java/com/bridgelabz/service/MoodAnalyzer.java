@@ -1,4 +1,6 @@
-package com.bridgelabz;
+package com.bridgelabz.service;
+
+import com.bridgelabz.Exception.MoodAnalysisException;
 
 public class MoodAnalyzer {
         String message;

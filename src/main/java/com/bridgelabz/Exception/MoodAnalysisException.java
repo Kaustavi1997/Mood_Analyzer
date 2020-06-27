@@ -1,4 +1,4 @@
-package com.bridgelabz;
+package com.bridgelabz.Exception;
 
 public class MoodAnalysisException extends RuntimeException {
     public ExceptionType type;
